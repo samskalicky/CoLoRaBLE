@@ -1,5 +1,5 @@
 # CoLoRaBLE
-Code for a LoRa BLE device based on the [SparkFun LoRa Gateway - 1-Channel (ESP32)](https://www.sparkfun.com/products/18074)
+Code for a [LoRa](https://en.wikipedia.org/wiki/LoRa) [BLE](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy) device based on the [SparkFun LoRa Gateway - 1-Channel (ESP32)](https://www.sparkfun.com/products/18074)
 
 <img src="logo/CoLoRaBLE.png" alt="CoLoRaBLE logo" width="200"/>
 
