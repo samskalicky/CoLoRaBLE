@@ -1,6 +1,8 @@
 # CoLoRaBLE
 Code for a LoRa BLE device based on the [SparkFun LoRa Gateway - 1-Channel (ESP32)](https://www.sparkfun.com/products/18074)
 
+<img src="logo/CoLoRaBLE.png" alt="CoLoRaBLE logo" width="200"/>
+
 ## Applications
 I plan to build a few different project with this:
 - LoRa-based messaging app, use your iOS phone to send/receive messages over 915MHz (iOS Phone -BT-> ESP32 --> LoRa --> ESP32 -BT-> iOS Phone). Communicate when hiking or out of cellular range, share GPS coordinates & see friends on map
