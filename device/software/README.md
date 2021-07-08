@@ -8,7 +8,7 @@ The software for the radio device is mostly C++, but the main controller is Ardu
 
 [Sesame.h](Sesame.h) is the main C++ entry point where the `Sesame` class is defined that holds the Bluetooth and LoRa objects and device ID. [SesameBLE.h](SesameBLE.h) defines the Bluetooth configuration of the device for communicating with the phone. And the [SesameLoRa.h](SesameLoRa.h) is where the LoRa radio networking configuration lives.
 
-The LoRa software is built on top of the (LoRa Arduino library](https://github.com/sandeepmistry/arduino-LoRa). The Bluetooth software is built on top of the [Arduino ESP-32 core](https://github.com/espressif/arduino-esp32) \(leveraging the [SparkFun board config](https://github.com/sparkfun/ESP32_LoRa_1Ch_Gateway/tree/main/Firmware)\).
+The LoRa software is built on top of the [LoRa Arduino library](https://github.com/sandeepmistry/arduino-LoRa). The Bluetooth software is built on top of the [Arduino ESP-32 core](https://github.com/espressif/arduino-esp32) \(leveraging the [SparkFun board config](https://github.com/sparkfun/ESP32_LoRa_1Ch_Gateway/tree/main/Firmware)\).
 
 ## LoRa Networking
 
