@@ -5,7 +5,7 @@ LoRa is a network modulation technique [\[ref\]](https://en.wikipedia.org/wiki/L
 Ive defined the following structure for packets sent on the LoRa network:
 
 | Bytes | Name |
-----------------
+| ----- | ---- |
 | 0 | Packet ID [0-254, 255 is reserved for broadcasts\] |
 | 1 | Packet Type |
 | 2 | From Node ID |
@@ -30,7 +30,13 @@ Since the RFM95W LoRa radio cannot detect collisions during transmission (it can
 Each node runs the following state machine:
 1. try receiving for 10 times for at least 100ms. If there is nothing to receive, wait 10ms and try again.
 2. if its time, announce
-3. send any priority packets
+3. send any priority packets (normally these are just ACKs to received packets)
 4. send a single regular packet
 
-Since each node will undoubt
+When sending a regular packet (ie. message from the phone) we implement semi-reliable transmission by allowing 5 chances to have a receiver ACK the packet. After each attempt we wait a random delay (between 100-400ms) before we try again. This works as our backoff and random collision avoidance. Once we recieve an ACK for the packet, we remove it from the `outgoing` queue and move on to the next packet to transmit.
+
+When receiving a packet we parse it into a data structure and than handle it accordingly. If we received an ACK, we try and match it with one of the packets we sent (as opposed to receiving an ACK from two other communicating nodes) and then make that packet as transmitted successfully. If we receive a regular packet for the first time, we enqueue an ACK to be sent out in the priority queue (so it doesnt get stuck behind other data packets we're trying to send).
+
+Additionally, ACK packets also return the RSSI and SNR values of the receiving node to the transmitting node (so it can know how strong its signal is to this node). We also track the status of each node in the network we receive packets from.
+
+Currently there is no mesh support, but its something that can be added. For now, point-to-point is all im interested in (since I only have 2 nodes anyway ;-p). 
