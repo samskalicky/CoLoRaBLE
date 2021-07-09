@@ -19,7 +19,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app uses location to show where you are on a map</string>
+	<string>This app uses your location to show where you are in relation to other radio devices</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
@@ -29,7 +29,7 @@
 	<key>NSFileProviderDomainUsageDescription</key>
 	<string>This app uses bluetooth to scan for radio devices</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app uses location to show where you are on a map</string>
+	<string>This app uses your location to show where you are in relation to other radio devices</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -30,5 +30,10 @@ struct ContentView: View {
             bleMgr.stopScanning()
             print("stopped scanning")
         }
+        if !bleMgr.simulating {
+            Button("Simulate Device") {
+                bleMgr.simulateDevice()
+            }
+        }
     }
 }

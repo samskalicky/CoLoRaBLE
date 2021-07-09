@@ -11,6 +11,7 @@ import CoreBluetooth
 class BLEmanager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var msgCtrl: MsgController?
     var loraCtrl: LoraController?
+    var simulating: Bool = false
     
     @Published var periphs = [PName]()
     @Published var periphMap = [String: Peripheral]()
@@ -49,7 +50,10 @@ class BLEmanager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     }
     
     func connectTo(peripheral: CBPeripheral) {
-        centralMgr.connect(peripheral, options: nil)
+        // connect if its a real device, do nothing for sim
+        if peripheral as? SimulatedCBPeripheral == nil {
+            centralMgr.connect(peripheral, options: nil)
+        }
     }
     
     // called for each peripheral discovered
@@ -139,24 +143,46 @@ class BLEmanager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     
     // write a new value to the device
     func writeMsg(peripheral: CBPeripheral, withValue value: String) {
-        if let periph = periphMap[peripheral.identifier.uuidString] {
-            if periph.isConnected {
-                let val = (value as NSString).data(using: String.Encoding.utf8.rawValue)
-                if let msg = periph.msg {
-                    peripheral.writeValue(val!, for: msg, type: .withResponse)
+        if peripheral as? SimulatedCBPeripheral == nil {
+            if let periph = periphMap[peripheral.identifier.uuidString] {
+                if periph.isConnected {
+                    let val = (value as NSString).data(using: String.Encoding.utf8.rawValue)
+                    if let msg = periph.msg {
+                        peripheral.writeValue(val!, for: msg, type: .withResponse)
+                    }
                 }
             }
+        } else {
+            // split message by special character
+            let comps = value.components(separatedBy: "\u{1f}")
+            let othMsg = "sim" + "\u{1f}" + "echoed '" + comps[1] + "'"
+            msgCtrl!.addMessage(message: othMsg)
         }
     }
     
     // async request to read lora network info
     func readLora(peripheral: CBPeripheral) {
-        if let periph = periphMap[peripheral.identifier.uuidString] {
-            if periph.isConnected {
-                if let lora = periph.lora {
-                    peripheral.readValue(for: lora)
+        if peripheral as? SimulatedCBPeripheral == nil {
+            if let periph = periphMap[peripheral.identifier.uuidString] {
+                if periph.isConnected {
+                    if let lora = periph.lora {
+                        peripheral.readValue(for: lora)
+                    }
                 }
             }
+        }
+    }
+    
+    // simulate a device for testing
+    func simulateDevice() {
+        simulating = true
+        let uuid = "simulated-device"
+        if periphMap[uuid] == nil {
+            let pname = PName(id: uuid, name: "Sesame-sim")
+            let peripheral = SimulatedCBPeripheral()
+            let periph = Peripheral(name: "Sesame-sim", periph: peripheral)
+            periphs.append(pname)
+            periphMap[uuid] = periph
         }
     }
 }

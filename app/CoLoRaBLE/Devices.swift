@@ -8,6 +8,13 @@
 import SwiftUI
 import CoreBluetooth
 
+class SimulatedCBPeripheral: CBPeripheral {
+    
+    init(name: String = "sim") {
+        
+    }
+}
+
 class Peripheral: Identifiable {
     var id = UUID()
     var name: String

@@ -28,6 +28,7 @@ struct CoLoRaBLEApp: App {
             ContentView()
                 .environmentObject(msgCtrl)
                 .environmentObject(loraCtrl)
+                .environmentObject(locCtrl)
                 .environmentObject(bleMgr)
         }
     }

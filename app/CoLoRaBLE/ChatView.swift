@@ -61,7 +61,7 @@ struct ChatView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             Button("Send") {
                 msgCtrl.sendMessage(message: composedMessage)
-                let msg = periph.username + "\u{1f}" + composedMessage
+                let msg = periph.username + "\u{1f}" + composedMessage                
                 bleMgr.writeMsg(peripheral: periph.periph, withValue: msg)
                 composedMessage = ""
             }.padding(CGFloat(5))
