@@ -60,7 +60,8 @@ class loraCallbacks : public BLECharacteristicCallbacks {
      * Called when phone writes to device
      */
     void onRead(BLECharacteristic *pCharacteristic) {
-        pCharacteristic->setValue(lora->getNetworkInfo());
+        std::string info = lora->getNetworkInfo();
+        pCharacteristic->setValue(info);
     }
     
     SesameLoRa *lora;
@@ -88,6 +89,7 @@ class SesameBLE  {
 public:
     SesameBLE() {
       msgHandler = new msgCallbacks();
+      gpsHandler = new gpsCallbacks();
       loraHandler = new loraCallbacks();
       srvrCallbacks = new serverCallbacks();
     }
@@ -124,8 +126,8 @@ public:
                                              BLECharacteristic::PROPERTY_READ |
                                              BLECharacteristic::PROPERTY_WRITE
                                            );
-        msgCharacteristic->setCallbacks(gpsHandler);
-        msgCharacteristic->addDescriptor(new BLE2902());
+        gpsCharacteristic->setCallbacks(gpsHandler);
+        gpsCharacteristic->addDescriptor(new BLE2902());
 
         pService->start();
 

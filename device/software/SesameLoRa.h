@@ -122,8 +122,6 @@ public:
         //Announce for discovery
         if(current > nextAnnounce) {
             announce();
-            std::string info = getNetworkInfo();
-            Serial.println(info.c_str());
             nextAnnounce = current + announce_rate;
         }
 
