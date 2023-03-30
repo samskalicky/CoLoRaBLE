@@ -6,14 +6,17 @@ Code for a [LoRa](https://en.wikipedia.org/wiki/LoRa) [BLE](https://en.wikipedia
 ## News
 - The CoLoRaBLE iOS App is now published in the Apple App Store! Check it out: https://apps.apple.com/us/app/colorable-code-for-lora-ble/id1575668696 and see a video demo of the app in action here: https://www.youtube.com/watch?v=ltvkS5mSGhw
 
-## Applications
-I plan to build a few different project with this:
-- LoRa-based messaging app, use your iOS phone to send/receive messages over 915MHz (iOS Phone -BT-> ESP32 --> LoRa --> ESP32 -BT-> iOS Phone). Communicate when hiking or out of cellular range, share GPS coordinates & see friends on map
+## What is it?
+The CoLoRaBLE project is an open-source software and hardware initiative to help prototype devices that communicate with each other via "Long-Range" (LoRa) low power mesh radio network and connect to phones over Bluetooth Low Energy (BLE). 
+
+## Applications 
+- Off-grid text messaging when cellular service is not available. Communicate when hiking, share GPS coordinates & see friends on map
 - Remote temperature controller, see temperature inside the car & turn on a fan remotely
 - Remote camera, see pictures from remote device
 
 ## Hardware
-This project is built on top of the [SparkFun LoRa Gateway - 1-Channel (ESP32)](https://www.sparkfun.com/products/18074) with the [Pycom LoRa and Sigfox Antenna Kit - 915MHz](https://www.sparkfun.com/products/14676). Other sensors/peripherals will be added later, but these are the core components
+This project is built on top of the [SparkFun LoRa Gateway - 1-Channel (ESP32)](https://www.sparkfun.com/products/18074) with the [Pycom LoRa and Sigfox Antenna Kit - 915MHz](https://www.sparkfun.com/products/14676). 
 
 ## Software
-This project will program the ESP32 using the Arduino IDE & software stack. iOS apps will be written to communicate from the phone over Bluetooth Low Energy (BLE).
+- Device side software targets the ESP32 using Arduino. 
+- Phone side software currently only supports iOS. 
