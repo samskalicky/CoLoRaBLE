@@ -1,3 +1,10 @@
+
+# Required Libraries
+- LoRa by Sandeep Mistry Version 0.8.0
+- Adafruit INA219
+- Adafruit GPS Library
+- Adafruit BME680
+
 # Sesame device software
 
 The software for the radio device is mostly C++, but the main controller is Arduino. The [Sesame.ino](Sesame.ino) is the Arduino Sketch where the top level components are tied together. During the main loop, the device does 3 things:
