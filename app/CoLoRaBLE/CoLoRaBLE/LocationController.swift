@@ -14,10 +14,14 @@ class LocationController : NSObject, ObservableObject, CLLocationManagerDelegate
     @Published var authStatus: CLAuthorizationStatus = .notDetermined
     let locationManager: CLLocationManager = CLLocationManager()
     
+    @Published var annotations = [Position]()
+    var deviceGPS: String = "37.33456, -122.0089"
+    
     override init() {
         super.init()
 //        locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
     // Invoked when the authorization status changes for this application.
@@ -25,13 +29,28 @@ class LocationController : NSObject, ObservableObject, CLLocationManagerDelegate
         authStatus = status
         didChange.send(())
     }
+    
+    func isAuthorized() -> Bool {
+        return authStatus == .authorizedAlways || authStatus == .authorizedWhenInUse
+    }
 
     func getLocation() -> CLLocationCoordinate2D {
-        if (locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse),
-           let loc = locationManager.location?.coordinate {
+        if isAuthorized(), let loc = locationManager.location?.coordinate {
             return loc
         } else {
             return CLLocationCoordinate2D(latitude: 37.33456537483293, longitude:  -122.00893963508311)
         }
+    }
+    
+    func requestAuthorization() {
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func startUpdating() {
+        locationManager.startUpdatingLocation()
+    }
+    
+    func stopUpdating() {
+        locationManager.stopUpdatingLocation()
     }
 }

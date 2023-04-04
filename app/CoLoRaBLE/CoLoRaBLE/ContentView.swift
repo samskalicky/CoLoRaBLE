@@ -9,13 +9,14 @@ import SwiftUI
 
 // main view for the app
 struct ContentView: View {
-    @EnvironmentObject var bleMgr: BLEmanager
+    var bleMgr: BLEmanager
+    @ObservedObject var data: DataStore
     
     var body: some View {
         NavigationView {
-            List(bleMgr.periphs) { pname in
-                let periph = bleMgr.periphMap[pname.id]
-                NavigationLink(destination: DeviceView(name: pname.name, periph: periph!)) {
+            List(data.periphs) { pname in
+                let periph = data.periphMap[pname.id]
+                NavigationLink(destination: DeviceView(name: pname.name, periph: periph!, data: data, bleMgr: bleMgr)) {
                     Text(pname.name)
                 }
             }
@@ -29,11 +30,6 @@ struct ContentView: View {
         .onDisappear() {
             bleMgr.stopScanning()
             print("stopped scanning")
-        }
-        if !bleMgr.simulating {
-            Button("Simulate Device") {
-                bleMgr.simulateDevice()
-            }
         }
     }
 }

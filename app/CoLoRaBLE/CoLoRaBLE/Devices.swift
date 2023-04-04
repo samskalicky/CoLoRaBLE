@@ -1,36 +1,31 @@
 //
 //  Devices.swift
-//  CoLoRaBLE
+//  CoLoRaBLEMac
 //
-//  Created by Skalicky, Sam on 6/29/21.
+//  Created by Skalicky, Sam on 6/17/22.
 //
 
 import SwiftUI
 import CoreBluetooth
 
-class SimulatedCBPeripheral: CBPeripheral {
-    
-    init(name: String = "sim") {
-        
-    }
-}
-
 class Peripheral: Identifiable {
     var id = UUID()
     var name: String
-    var username: String
+    var nodeID: Int
     let periph: CBPeripheral
     var msg: CBCharacteristic?
     var lora: CBCharacteristic?
+    var nodeInfo: CBCharacteristic?
+    var radio: CBCharacteristic?
     var rssiTimer: Timer?
     var loraTimer: Timer?
     @Published var rssi: String = ""
     @Published var isConnected: Bool = false
     
-    init(name: String, periph: CBPeripheral) {
+    init(name: String, nodeID: Int, periph: CBPeripheral) {
         self.name = name
+        self.nodeID = nodeID
         self.periph = periph
-        username = "Bob"
     }
 }
 
