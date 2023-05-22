@@ -7,6 +7,41 @@
 import Foundation
 import SwiftUI
 import CoreBluetooth
+import MapKit
+
+
+class NodeInfo: ObservableObject {
+    var position: CLLocationCoordinate2D
+    var gps_altitude: Double
+    @Published var temperature: Double
+    var pressure: Double
+    var humidity: Double
+    var pressure_altitude: Double
+    var current: Double
+    @Published var voltage: Double
+    
+    init() {
+        position = CLLocationCoordinate2D()
+        gps_altitude = 0
+        temperature = 0
+        pressure = 0
+        humidity = 0
+        pressure_altitude = 0
+        current = 0
+        voltage = 0
+    }
+    
+    init(position: CLLocationCoordinate2D, gps_altitude: Double, temperature: Double, pressure: Double, humidity: Double, pressure_altitude: Double, current: Double, voltage: Double) {
+        self.position = position
+        self.gps_altitude = gps_altitude
+        self.temperature = temperature
+        self.pressure = pressure
+        self.humidity = humidity
+        self.pressure_altitude = pressure_altitude
+        self.current = current
+        self.voltage = voltage
+    }
+}
 
 class Periph: Identifiable, Equatable {
     
@@ -14,15 +49,19 @@ class Periph: Identifiable, Equatable {
     var name: String
     var uuid: String
     var lastSeen: NSDate
-    var isConnected: Bool
     var cbperipheral: CBPeripheral
     var timer: Timer
+    var rssiTimer: Timer?
+    @Published var info: NodeInfo
+    @Published var rssi: String = ""
+    @Published var isConnected: Bool = false
     
     init(id: Int, name: String, uuid: String, cbperipheral: CBPeripheral) {
         self.id = id
         self.name = name
         self.uuid = uuid
         self.lastSeen = NSDate()
+        self.info = NodeInfo()
         self.isConnected = false
         self.cbperipheral = cbperipheral
         self.timer = Timer()
@@ -63,17 +102,4 @@ class DataStore: NSObject, ObservableObject {
             self.periphs = filterArray
         }
     }
-}
-
-extension DataStore {
-    
-    convenience init(test:Bool) {
-        periphs.append(Periph(id: 0, name: "Test-0", uuid: "zero", cbperipheral: <#T##CBPeripheral#>))
-    }
-    static let sampleData: DataStore =
-    [
-        DailyScrum(title: "Design", attendees: ["Cathy", "Daisy", "Simon", "Jonathan"], lengthInMinutes: 10, theme: .yellow),
-        DailyScrum(title: "App Dev", attendees: ["Katie", "Gray", "Euna", "Luis", "Darla"], lengthInMinutes: 5, theme: .orange),
-        DailyScrum(title: "Web Dev", attendees: ["Chella", "Chris", "Christina", "Eden", "Karla", "Lindsey", "Aga", "Chad", "Jenn", "Sarah"], lengthInMinutes: 5, theme: .poppy)
-    ]
 }

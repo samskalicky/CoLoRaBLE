@@ -145,7 +145,7 @@ class BLEmanager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     // called when readRSSI is called
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         let uuid = peripheral.identifier.uuidString
-//            periph.rssi = RSSI.stringValue
+        data!.periphMap[uuid]!.rssi = RSSI.stringValue
     }
 
 }

@@ -23,9 +23,6 @@ struct ContentView: View {
             List(data.periphs) { peripheral in
                 NavigationLink(destination: getView(periph: peripheral)) {
                     Text(peripheral.name)
-                        .onTapGesture {
-                            
-                        }
                 }
             }
         }
