@@ -1,9 +1,27 @@
 
 # Required Libraries
 - LoRa by Sandeep Mistry Version 0.8.0
-- Adafruit INA219
-- Adafruit GPS Library
-- Adafruit BME680
+- Adafruit INA219 Version 1.2.1
+- Adafruit GPS Library Version 1.7.2
+- Adafruit BME680 Version 2.0.2
+
+## Install
+Select `Tools`->`Manage Libraries`. Then search for and install each of the above libraries.
+
+# Setting up Arduino
+Following the instructions from [Sparkfun](https://learn.sparkfun.com/tutorials/sparkfun-lora-gateway-1-channel-hookup-guide/programming-the-esp32-with-arduino)
+
+## Install ESP32 Arduino Core
+Open Arduino and go to Settings, then set the `Additional Board Manager URLs:` to:
+```
+https://dl.espressif.com/dl/package_esp32_index.json
+```
+Then click `Ok`.
+
+Next, select `Tools`->`Boards`->`Boards Manager`. Install the `esp32` package from Esspressif Systems (version 2.0.11 at the time of writing). Warning, do NOT install the `Arduino ESP32 Boards` package by Arduino. 
+
+## Selecting the board
+After installing the ESP32 Arduino Core (above), select `Tools`->`ESP32 Arduino`->`SparkFun LoRa Gateway 1-Channel`.
 
 # Sesame device software
 
